@@ -1,0 +1,15 @@
+ => CACHED [6/7] RUN SERVICE mysql start                                                        0.0s
+ => ERROR [7/7] RUN ./TMP/DBLOAD.SH                                                             1.0s
+------
+ > [7/7] RUN    ./TMP/DBLOAD.SH:
+#0 0.712 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (111)
+------
+dockerfile:26
+--------------------
+  24 |     EXPOSE	3306
+  25 |
+  26 | >>> RUN	./tmp/DBload.sh
+  27 |
+  28 |     # Start Nginx
+--------------------
+ERROR: failed to solve: process "/bin/sh -c ./tmp/DBload.sh" did not complete successfully: exit code: 1

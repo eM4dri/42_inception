@@ -19,11 +19,7 @@ RUN     openssl req -x509 \
         -keyout /etc/ssl/private/emadriga-selfsigned.key \
         -out /etc/ssl/certs/emadriga-selfsigned.crt
 
-# Remove default Nginx configuration
-RUN rm /etc/nginx/http.d/default.conf
-RUN rm /var/lib/nginx/html/index.html
-
-# Copy custom Nginx configuration
+# Replacem default Nginx configuration & index.html
 COPY nginx.conf /etc/nginx/http.d/
 COPY index.html /var/lib/nginx/html/
 
