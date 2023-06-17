@@ -19,9 +19,9 @@ RUN     openssl req -x509 \
         -keyout /etc/ssl/private/emadriga-selfsigned.key \
         -out /etc/ssl/certs/emadriga-selfsigned.crt
 
-# Replacem default Nginx configuration & index.html
-COPY nginx.conf /etc/nginx/http.d/
-COPY index.html /var/lib/nginx/html/
+# Replace default Nginx configuration & index.html
+COPY conf/nginx.conf /etc/nginx/http.d/
+COPY conf/index.html /var/lib/nginx/html/
 
 # Expose port 443
 EXPOSE 443
