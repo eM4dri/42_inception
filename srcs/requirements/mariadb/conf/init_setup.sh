@@ -1,32 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
+service mysql start;
 
-db_name=myDB
-db_user=admin
-db_pwd=aq12wsxz
+mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
+mysql -e "CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mysql -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 
+mysql -e "FLUSH PRIVILEGES;"
 
-echo "" >> /etc/mysql/my.cnf
-echo "[mysqld]" >> /etc/mysql/my.cnf
-echo "socket=/var/run/mysqld/mysqld.sock" >> /etc/mysql/my.cnf
-echo "[client]" >> /etc/mysql/my.cnf
-echo "socket=/var/run/mysqld/mysqld.sock" >> /etc/mysql/my.cnf
+mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown
 
-touch /var/run/mysqld/mysqld.pid
-touch /var/run/mysqld/mysqld.sock
-
-chown mysql:mysql -R /var/run/mysqld
-
-service mysql start
-
-echo "CREATE DATABASE IF NOT EXISTS $db_name ;" > db1.sql
-echo "CREATE USER IF NOT EXISTS '$db_user'@'%' IDENTIFIED BY '$db_pwd' ;" >> db1.sql
-echo "GRANT ALL PRIVILEGES ON $db_name.* TO '$db_user'@'%' ;" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
-
-mysql < db1.sql
-
-kill $(cat /var/run/mysqld/mysqld.pid)
-
-mysqld
+exec mysqld_safe

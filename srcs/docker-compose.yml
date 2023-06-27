@@ -2,10 +2,58 @@ version: '3.8'
 
 # Services
 services:
-
-  # Nginx Service
   nginx:
     container_name: nginx
+    networks:
+    - inception
+    env_file: .env
+    depends_on:
+    - wordpress
     build: ./requirements/nginx
     ports:
-      - 443:443
+    - 443:443
+    restart: on-failure
+
+  wordpress:
+    container_name: wordpress
+    networks:
+    - inception
+    volumes:
+    - wordpress:/var/www/wordpress
+    env_file: .env
+    depends_on:
+    - mariadb
+    build: ./requirements/wordpress
+    restart: on-failure
+    expose:
+    - "9000"
+
+  mariadb:
+    container_name: mariadb
+    networks:
+    - inception
+    volumes:
+    - mariadb:/var/lib/mysql
+    env_file: .env
+    build: ./requirements/mariadb
+    expose:
+    - "3306"
+    restart: unless-stopped
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/emadriga/data/wordpress'
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/emadriga/data/mariadb'
+
+networks:
+  inception:
+    driver: bridge
