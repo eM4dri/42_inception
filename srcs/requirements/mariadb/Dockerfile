@@ -1,9 +1,9 @@
 FROM	debian:buster
 
 # Install MariaDB
-RUN	apt-get update -y && \
+RUN	apt update -y && \
 	apt upgrade -y && \
-	apt-get install mariadb-server -y
+	apt install mariadb-server -y
 
 # RUN 	apt-get install -y vim && \
 # 	echo "syntax on\n \
@@ -29,3 +29,4 @@ EXPOSE	3306
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 # Start Nginx
 CMD ["/init_setup.sh"]
+# CMD ["/bin/bash.sh"]

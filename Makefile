@@ -18,5 +18,9 @@ up:
 	docker compose -f srcs/docker-compose.yml up -d
 
 stop:
-	docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
+	# docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
+	docker compose -f srcs/docker-compose.yml down -v
+
+clear:
+	docker system prune -af
 
