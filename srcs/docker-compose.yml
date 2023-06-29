@@ -9,6 +9,8 @@ services:
     env_file: .env
     depends_on:
     - wordpress
+    volumes:
+    - wordpress:/var/www/html
     build: ./requirements/nginx
     ports:
     - 443:443
@@ -19,7 +21,7 @@ services:
     networks:
     - inception
     volumes:
-    - wordpress:/var/www/wordpress
+    - wordpress:/var/www/html
     env_file: .env
     depends_on:
     - mariadb
