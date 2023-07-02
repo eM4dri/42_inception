@@ -12,7 +12,7 @@ RUN		pip install clay
 # RUN		clay new myapp
 
 # Copy needed files
-COPY	conf/run_service.sh		/
+COPY	conf/init_setup.sh		/
 COPY	conf/index.html			/
 
 RUN		chmod +x init_setup.sh
