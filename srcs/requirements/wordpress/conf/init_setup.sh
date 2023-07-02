@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # create directory to use in nginx container later and also to setup the wordpress conf
-mkdir /var/www/
 mkdir /var/www/html
-
 cd /var/www/html
 
 # remove all the wordpress files if there is something from the volumes to install it again
@@ -12,7 +10,7 @@ rm -rf *
 # The commands are for installing and using the WP-CLI tool.
 
 # downloads the WP-CLI PHAR (PHP Archive) file from the GitHub repository. The -O flag tells curl to save the file with the same name as it has on the server.
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 # makes the WP-CLI PHAR file executable.
 chmod +x wp-cli.phar
@@ -28,11 +26,11 @@ mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 # change the those lines in wp-config.php file to connect with database
 
 #line 23
-sed -i -r "s/database_name_here/$db_name/1"   wp-config.php
+sed -i -r "s/database_name_here/$MYSQL_DATABASE/1"   wp-config.php
 #line 26
-sed -i -r "s/username_here/$db_user/1"  wp-config.php
+sed -i -r "s/username_here/$MYSQL_USER/1"  wp-config.php
 #line 29
-sed -i -r "s/password_here/$db_pwd/1"    wp-config.php
+sed -i -r "s/password_here/$MYSQL_PASSWORD/1"    wp-config.php
 
 #line 32
 sed -i -r "s/localhost/mariadb/1"    wp-config.php  #(to connect with mariadb database)

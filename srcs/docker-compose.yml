@@ -49,6 +49,8 @@ services:
     build: ./requirements/bonus/clay
     expose:
     - "8080"
+   # ports:
+   # - 8080:8080
     restart: on-failure
 
 volumes:
@@ -57,13 +59,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/emadriga/data/wordpress'
+      device: '/home/emadriga/data/wordpress'
   mariadb:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/emadriga/data/mariadb'
+      device: '/home/emadriga/data/mariadb'
 
 networks:
   inception:

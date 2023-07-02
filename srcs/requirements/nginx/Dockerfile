@@ -22,6 +22,7 @@ RUN     openssl req -x509 \
 # Replace default Nginx configuration & index.html
 COPY conf/nginx.conf /etc/nginx/http.d/
 COPY conf/index.html /var/lib/nginx/html/
+COPY conf/proxy_params /etc/nginx/proxy_params
 
 # Expose port 443
 EXPOSE 443

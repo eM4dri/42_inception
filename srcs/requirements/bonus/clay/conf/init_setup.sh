@@ -6,4 +6,4 @@ cp index.html myapp/
 
 cd myapp
 
-clay run
+clay run --host=emadriga.42.fr --port=8081

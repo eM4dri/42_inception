@@ -6,29 +6,46 @@ service mysql start;
 # touch /var/run/mysqld/mysqld.sock
 # chmod 777 /var/run/mysqld/mysqld.sock
 # chmod 777 /var/run/mysqld/mysqld.pid
-# MYSQL_ROOT_PASSWORD='bORN2BEROOT.'
-# MYSQL_USER=mysql
-# MYSQL_PASSWORD='Born2beroot.'
-# MYSQL_DATABASE=wordpress
+#MYSQL_ROOT_PASSWORD='bORN2BEROOT.'
+#MYSQL_USER=mysql
+#MYSQL_PASSWORD='Born2beroot.'
+#MYSQL_DATABASE=wordpress
 
 
-echo "YOUR MYSQL_DATABASE IS $MYSQL_DATABASE"
-echo "YOUR MYSQL_USER IS $MYSQL_USER"
-echo "YOUR MYSQL_PASSWORD IS $MYSQL_PASSWORD"
-echo "YOUR MYSQL_ROOT_PASSWORD IS $MYSQL_ROOT_PASSWORD"
+#echo "YOUR MYSQL_DATABASE IS $MYSQL_DATABASE"
+#echo "YOUR MYSQL_USER IS $MYSQL_USER"
+#echo "YOUR MYSQL_PASSWORD IS $MYSQL_PASSWORD"
+#echo "YOUR MYSQL_ROOT_PASSWORD IS $MYSQL_ROOT_PASSWORD"
 
 echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE ;" > db1.sql
 echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> db1.sql
 echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}' ;" >> db1.sql
-
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;" >> db1.sql
+echo "FLUSH PRIVILEGES; -p'$MYSQL_ROOT_PASSWORD'" >> db1.sql
 mysql < db1.sql
 
-mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+#echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE ;"l
+#mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE ;"
+#echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;"
+#mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;"
+#echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' ;"
+#mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' ;"
+#echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;"
+#mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;"
+#echo "FLUSH PRIVILEGES; -p'$MYSQL_ROOT_PASSWORD'"
+#mysql -e "FLUSH PRIVILEGES; -p'$MYSQL_ROOT_PASSWORD'"
 
-# mysqld_safe
-exec mysqld_safe
+
+#echo "-u root -p$MYSQL_ROOT_PASSWORD shutdown" > db2.sql
+
+#mysqladmin < db2.sql
+
+#echo "kill $(cat /var/run/mysqld/mysqld.pid)"
+kill $(cat /var/run/mysqld/mysqld.pid)
+
+mysqld_safe
+#echo "exec mysqld_safe"
+#exec mysqld_safe
 # mysql
 
 # mysqld_safe --user=mysql --datadir="/var/lib/mysql" --init-file=db1.sql --p
