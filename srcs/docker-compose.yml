@@ -42,6 +42,15 @@ services:
     - "3306"
     restart: unless-stopped
 
+  clay:
+    container_name: clay
+    networks:
+    - inception
+    build: ./requirements/bonus/clay
+    expose:
+    - "8080"
+    restart: on-failure
+
 volumes:
   wordpress:
     driver: local
