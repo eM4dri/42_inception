@@ -9,6 +9,7 @@ services:
     env_file: .env
     depends_on:
     - wordpress
+    - clay 
     volumes:
     - wordpress:/var/www/html
     build: ./requirements/nginx
@@ -48,7 +49,7 @@ services:
     - inception
     build: ./requirements/bonus/clay
     expose:
-    - "8080"
+    - "8081"
    # ports:
    # - 8080:8080
     restart: on-failure

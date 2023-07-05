@@ -17,8 +17,8 @@ COPY	conf/index.html			/
 
 RUN		chmod +x init_setup.sh
 
-# Expose port 8080
-EXPOSE	8080
+# Expose port 8081
+EXPOSE	8081
 
 # Start
 CMD ["/init_setup.sh"]
