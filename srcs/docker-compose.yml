@@ -9,7 +9,7 @@ services:
     env_file: .env
     depends_on:
     - wordpress
-    - clay 
+    - clay
     volumes:
     - wordpress:/var/www/html
     build: ./requirements/nginx
@@ -50,9 +50,18 @@ services:
     build: ./requirements/bonus/clay
     expose:
     - "8081"
-   # ports:
-   # - 8080:8080
     restart: on-failure
+
+  adminer:
+    container_name: adminer
+    networks:
+    - inception
+    depends_on:
+    - mariadb
+    build: ./requirements/bonus/adminer
+    restart: on-failure
+    expose:
+    - "8042"
 
 volumes:
   wordpress:
