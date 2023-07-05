@@ -10,8 +10,9 @@ services:
     depends_on:
     - wordpress
     - clay
+    - redis
     volumes:
-    - wordpress:/var/www/html
+    - wordpress_data:/var/www/html
     build: ./requirements/nginx
     ports:
     - 443:443
@@ -22,7 +23,7 @@ services:
     networks:
     - inception
     volumes:
-    - wordpress:/var/www/html
+    - wordpress_data:/var/www/html
     env_file: .env
     depends_on:
     - mariadb
@@ -36,7 +37,7 @@ services:
     networks:
     - inception
     volumes:
-    - mariadb:/var/lib/mysql
+    - mariadb_data:/var/lib/mysql
     env_file: .env
     build: ./requirements/mariadb
     expose:
@@ -63,14 +64,27 @@ services:
     expose:
     - "8042"
 
+  redis:
+    container_name: redis
+    networks:
+    - inception
+    depends_on:
+    - wordpress
+    volumes:
+    - wordpress_data:/var/www/html
+    build: ./requirements/bonus/redis
+    restart: on-failure
+    ports:
+    - 6379:6379
+
 volumes:
-  wordpress:
+  wordpress_data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/home/emadriga/data/wordpress'
-  mariadb:
+  mariadb_data:
     driver: local
     driver_opts:
       type: 'none'
