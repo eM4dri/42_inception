@@ -55,6 +55,13 @@ sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm
 mkdir /run/php
 
 
+#wp redis enable --allow-root
+wp config set WP_REDIS_HOST redis --allow-root #I put --allowroot because i am on the root user on my VM
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
+wp config set WP_REDIS_CLIENT phpredis --allow-root
+wp plugin install redis-cache --activate --allow-root
+wp plugin update --all --allow-root
 wp redis enable --allow-root
 
 
