@@ -1,22 +1,28 @@
-FROM	debian:buster
+FROM	alpine:3.17
 
-# Install python3-pip
-RUN		apt update	&& \
-		apt install -y git && \
-		apt install -y docker.io
+# Install pkgs
+ RUN apk add --update docker openrc wget
+ #RUN	apk update && \
+#	apk add docker && \
+#	apk add	openrc && \
+#	apk add wget
 
-# udo apt install git docker.io
-# # Install clay
-# RUN		pip install clay
+RUN rc-update add docker boot
 
 # Copy needed files
 COPY	conf/init_setup.sh		/
 
 RUN		chmod +x init_setup.sh
 
-# Expose port 8081
+# Expose ports
+EXPOSE	9443
 EXPOSE	9000
-
 
 # Start
 CMD ["/init_setup.sh"]
+# RUN apk add --update docker openrc wget
+ #RUN rc-update add docker boot
+
+#RUN wget https://github.com/portainer/portainer/releases/download/2.18.3/portainer-2.18.3-linux-amd64.tar.gz 
+
+#RUN tar -xvf portainer-2.18.3-linux-amd64.tar.gz
