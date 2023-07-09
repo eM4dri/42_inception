@@ -1,11 +1,7 @@
-FROM alpine:3.18
+FROM alpine:3.17
 
-# Install nginx & openssl
-RUN     apk update && \
-        apk add nginx && \
-        apk upgrade --update-cache --available && \
-        apk add openssl && \
-        rm -rf /var/cache/apk/*
+RUN apk add --update nginx openssl wget
+
 
 # Create Self-Signed SSL
 # From
@@ -19,13 +15,10 @@ RUN     openssl req -x509 \
         -keyout /etc/ssl/private/emadriga-selfsigned.key \
         -out /etc/ssl/certs/emadriga-selfsigned.crt
 
-# Replace default Nginx configuration & index.html
 COPY conf/nginx.conf /etc/nginx/http.d/
 COPY conf/index.html /var/lib/nginx/html/
 COPY conf/proxy_params /etc/nginx/proxy_params
 
-# Expose port 443
 EXPOSE 443
 
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
