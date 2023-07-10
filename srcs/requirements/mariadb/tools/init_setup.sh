@@ -2,10 +2,10 @@
 
 service mysql start;
 
-MYSQL_ROOT_PASSWORD='bORN2BEROOT.'
-MYSQL_USER=mysql
-MYSQL_PASSWORD='Born2beroot.'
-MYSQL_DATABASE=wordpress
+#MYSQL_ROOT_PASSWORD='bORN2BEROOT.'
+#MYSQL_USER=mysql
+#MYSQL_PASSWORD='Born2beroot.'
+#MYSQL_DATABASE=wordpress
 
 if [ ! -f "/db_wp_created" ]
 then
