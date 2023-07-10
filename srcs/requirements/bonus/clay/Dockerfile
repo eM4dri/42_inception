@@ -1,20 +1,13 @@
 FROM	alpine:3.17
 
-# Install python3-pip
-RUN		apk update	&& \
-		apk add py3-pip
+RUN		apk add --update py3-pip
 
-# Install clay
 RUN		pip install clay
 
-# Copy needed files
-COPY	conf/init_setup.sh		/
 COPY	conf/index.html			/
-
+COPY	tools/init_setup.sh		/
 RUN		chmod +x init_setup.sh
 
-# Expose port 8081
 EXPOSE	8081
 
-# Start
-CMD ["/init_setup.sh"]
+CMD		["/init_setup.sh"]
