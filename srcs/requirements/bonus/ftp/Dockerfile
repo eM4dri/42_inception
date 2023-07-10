@@ -3,15 +3,11 @@ FROM	alpine:3.17
 RUN apk add --update vsftpd openrc
 RUN rc-update add vsftpd boot
 
-# Copy needed files
-# COPY	conf/init_setup.sh		/
-COPY	conf/vsftpd.conf			/
+COPY	tools/init_setup.sh		/
+COPY	conf/vsftpd.conf		/etc/vsftpd/
 
-# RUN		chmod +x init_setup.sh
+RUN		chmod +x init_setup.sh
 
+EXPOSE	21
 
-# Expose port 8081
-EXPOSE	8081
-
-# Start
-CMD ["/bin/sh"]
+CMD ["/init_setup.sh"]

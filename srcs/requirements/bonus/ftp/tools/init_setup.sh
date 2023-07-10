@@ -1,9 +1,9 @@
 #!/bin/sh
 
-if [ ! -f /ftp_server_deployed ]; then
-	mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.old
-	mv /tmp/vsftpd.conf /etc/vsftpd/vsftpd.conf
+FTP_USER=emadriga
+FTP_PASSWORD='Born2beroot.'
 
+if [ ! -f /ftp_server_deployed ]; then
 	adduser $FTP_USER --disabled-password
 	echo "$FTP_USER:$FTP_PASSWORD" | /usr/sbin/chpasswd
 
@@ -17,7 +17,5 @@ if [ ! -f /ftp_server_deployed ]; then
 fi
 
 chown -R $FTP_USER:$FTP_USER /var/www/html
-
-echo "[INFO] starting... FTP server"
 
 vsftpd /etc/vsftpd/vsftpd.conf
