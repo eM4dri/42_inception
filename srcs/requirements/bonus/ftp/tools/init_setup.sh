@@ -1,7 +1,7 @@
 #!/bin/sh
 
-FTP_USER=emadriga
-FTP_PASSWORD='Born2beroot.'
+#FTP_USER=emadriga
+#FTP_PASSWORD='Born2beroot.'
 
 if [ ! -f /ftp_server_deployed ]; then
 	adduser $FTP_USER --disabled-password
