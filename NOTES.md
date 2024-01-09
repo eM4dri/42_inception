@@ -1,1 +1,0 @@
->	apavel recomends interfaz de comandos para wordpress to configure https://wp-cli.org/es/
